@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.rfructuoso.todolist.databinding.ActivityMainBinding
 import com.rfructuoso.todolist.datasource.TaskDataSource
@@ -47,7 +48,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private  fun updateList() {
-        adapter.submitList(TaskDataSource.getList())
+        val list = TaskDataSource.getList()
+            binding.includeEmpty.emptyState.visibility = if (list.isEmpty()) View.VISIBLE
+        else View.GONE
+
+        adapter.submitList(list)
     }
 
     companion object {
